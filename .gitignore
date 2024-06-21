@@ -398,3 +398,5 @@ FodyWeavers.xsd
 *.sln.iml
 .DS_Store
 rust/deployment/target/.rustc_info.json
+
+target_dir/
