@@ -1,5 +1,5 @@
 use std::{fs::File, io, process::Command};
-use anyhow::{Context, Result};
+use anyhow::{anyhow, Context, Result};
 use lazy_static::lazy_static;
 use zip::{write::FileOptions, ZipWriter};
 
@@ -39,14 +39,15 @@ fn main() -> Result<()> {
 
 fn deploy_zip_package() -> Result<()> {
     let login_command = format!("az login --service-principal -u {} -p {} --tenant {}",
-        std::env::var("AZURE_CLIENT_ID")?,
-        std::env::var("AZURE_SECRET")?,
-        std::env::var("AZURE_TENANT")?);
+        // Environment variables/secret names are automatically prepended with `fluenci_`, for security:
+        get_env_var_or_err("AZURE_CLIENT_ID")?,
+        get_env_var_or_err("AZURE_SECRET")?,
+        get_env_var_or_err("AZURE_TENANT")?);
 
     run_command("sh", &["-c", login_command.as_str()])?;
 
     let set_subscription_command = format!("az account set --subscription {}",
-        std::env::var("AZURE_SUBSCRIPTION_ID").unwrap());
+        get_env_var_or_err("AZURE_SUBSCRIPTION_ID").unwrap());
 
     run_command("sh", &["-c", set_subscription_command.as_str()])?;
 
@@ -58,6 +59,12 @@ fn deploy_zip_package() -> Result<()> {
     ])?;
     Ok(())
 }
+
+fn get_env_var_or_err(name: &str) -> Result<String, anyhow::Error> {
+    std::env::var(name)
+        .map_err(|_| anyhow!("Missing environment variable: '{name}'."))
+}
+
 
 fn run_command(command: &str, args: &[&str]) -> Result<()> {
     println!("***** Executing command: {} {}", command, args.join(", "));
