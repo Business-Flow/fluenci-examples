@@ -12,7 +12,7 @@ fn main() -> Result<()> {
         "--release",
         "--manifest-path", "rust/src/my_project/Cargo.toml",
         "--target-dir", "target_dir",
-        "--target", "x86_64-unknown-linux-gnu"
+        "--target", "x86_64-unknown-linux-musl"
     ])?;
 
     run_command("sh", &["-c", "ls -lFAR target_dir"])?;
@@ -21,7 +21,7 @@ fn main() -> Result<()> {
     let output_file = File::create("target_dir/deploy.zip")?;
     let mut zip = ZipWriter::new(output_file);
 
-    add_file_to_zip(&mut zip, "target_dir/x86_64-unknown-linux-gnu/release/my_project", "my_project", *EXECUTABLE)?;
+    add_file_to_zip(&mut zip, "target_dir/x86_64-unknown-linux-musl/release/my_project", "my_project", *EXECUTABLE)?;
     add_file_to_zip(&mut zip, "rust/deployment/src/azure_function_host.json", "host.json", *NON_EXECUTABLE)?;
     add_file_to_zip(&mut zip, "rust/deployment/src/hello_world_function.json", "hello_world/function.json", *NON_EXECUTABLE)?;
 
