@@ -15,6 +15,8 @@ fn main() -> Result<()> {
         "--target", "x86_64-unknown-linux-gnu"
     ])?;
 
+    run_command("sh", &["-c", "ls", "target_dir", "-lFAR"])?;
+
     // Assemble deployment .zip file
     let output_file = File::create("target_dir/deploy.zip")?;
     let mut zip = ZipWriter::new(output_file);
