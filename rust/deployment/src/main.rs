@@ -51,7 +51,7 @@ fn deploy_zip_package() -> Result<()> {
 
     run_command("sh", &["-c", set_subscription_command.as_str()])?;
 
-    let deploy_command = "az functionapp deployment source config-zip --name fluenci-prod-linux --resource-group fluenci-prod --src target_dir/deploy.zip";
+    let deploy_command = "az functionapp deployment source config-zip --name fluenci-rust-demo --resource-group fluenci-prod --src target_dir/deploy.zip";
 
     run_command("sh", &[
         "-c",
