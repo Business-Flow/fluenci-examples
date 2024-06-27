@@ -15,7 +15,7 @@ fn main() -> Result<()> {
         "--target", "x86_64-unknown-linux-gnu"
     ])?;
 
-    run_command("sh", &["-c", "ls", "-lFAR", "target_dir"])?;
+    run_command("sh", &["-c", "ls -lFAR target_dir"])?;
 
     // Assemble deployment .zip file
     let output_file = File::create("target_dir/deploy.zip")?;
@@ -72,7 +72,10 @@ fn get_env_var_or_err(name: &str) -> Result<String, anyhow::Error> {
 fn run_command(command: &str, args: &[&str]) -> Result<()> {
     println!("***** Executing command: {} {}", command, args.join(", "));
 
-    let status = Command::new(command).args(args).status().with_context(|| format!("Failed to execute command: {}", command))?;
+    let status = Command::new(command)
+        .args(args)
+        .status()
+        .with_context(|| format!("Failed to execute command: {}", command))?;
 
     if !status.success() {
         anyhow::bail!("Command {} failed with exit code: {}", command, status.code().unwrap_or(-1));
