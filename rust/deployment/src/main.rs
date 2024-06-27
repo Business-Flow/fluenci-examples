@@ -18,22 +18,22 @@ fn main() -> Result<()> {
     let output_file = File::create("target_dir/deploy.zip")?;
     let mut zip = ZipWriter::new(output_file);
 
-    zip.start_file("my_project", *EXECUTABLE)?;
-    let mut source_file = File::open("target_dir/release/my_project")?;
-    io::copy(&mut source_file, &mut zip)?;
-
-    zip.start_file("host.json", *NON_EXECUTABLE)?;
-    let mut source_file = File::open("rust/deployment/src/azure_function_host.json")?;
-    io::copy(&mut source_file, &mut zip)?;
-
-    zip.start_file("hello_world/function.json", *NON_EXECUTABLE)?;
-    let mut source_file = File::open("rust/deployment/src/hello_world_function.json")?;
-    io::copy(&mut source_file, &mut zip)?;
+    add_file_to_zip(&mut zip, "target_dir/release/my_project", "my_project", *EXECUTABLE)?;
+    add_file_to_zip(&mut zip, "rust/deployment/src/azure_function_host.json", "host.json", *NON_EXECUTABLE)?;
+    add_file_to_zip(&mut zip, "rust/deployment/src/hello_world_function.json", "hello_world/function.json", *NON_EXECUTABLE)?;
 
     // Deploy .zip file
     deploy_zip_package()?;
 
     println!("Deployment Script Completed.");
+    Ok(())
+}
+
+fn add_file_to_zip(zip: &mut ZipWriter<File>, local_file: &str, zip_file: &str, options: FileOptions) -> Result<()> {
+    println!("Adding local file {local_file} to zip as {zip_file}");
+    zip.start_file(zip_file, options)?;
+    let mut source_file = File::open(local_file)?;
+    io::copy(&mut source_file, zip)?;
     Ok(())
 }
 
