@@ -11,7 +11,8 @@ fn main() -> Result<()> {
         "build", 
         "--release",
         "--manifest-path", "rust/src/my_project/Cargo.toml",
-        "--target-dir", "target_dir"
+        "--target-dir", "target_dir",
+        "--target", "x86_64-unknown-linux-gnu"
     ])?;
 
     // Assemble deployment .zip file
