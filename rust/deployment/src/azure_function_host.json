@@ -14,11 +14,11 @@
     },
     "extensionBundle": {
       "id": "Microsoft.Azure.Functions.ExtensionBundle",
-      "version": "[3.*, 4.0.0)"
+      "version": "[2.*, 3.0.0)"
     },
     "customHandler": {
       "description": {
-        "defaultExecutablePath": "./my_project",
+        "defaultExecutablePath": "my_project",
         "workingDirectory": "",
         "arguments": []
       },
