@@ -21,7 +21,7 @@ async fn main() {
 }
 
 async fn hello_world_handler() -> Html<&'static str> {
-    Html(r#"<h1>Hello from a <a href="https://fluenci.com">FluenCI.com</a>-deployed Rust app!</h1>
+    Html(r#"<h1>Hello from a <a href="https://fluenci.co">FluenCI.co</a>-deployed Rust app!</h1>
             <h3>(Click <a href="https://github.com/dave-biz/fluenci-examples/blob/main/rust/deployment/src/main.rs" target="_blank">here</a> to view the pipeline that deployed me.)</h3>
     "#)
 }
