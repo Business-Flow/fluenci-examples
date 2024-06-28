@@ -25,6 +25,8 @@ fn main() -> Result<()> {
     add_file_to_zip(&mut zip, "rust/deployment/src/azure_function_host.json", "host.json", *NON_EXECUTABLE)?;
     add_file_to_zip(&mut zip, "rust/deployment/src/hello_world_function.json", "hello_world/function.json", *NON_EXECUTABLE)?;
 
+    zip.finish()?;
+
     // Deploy .zip file
     deploy_zip_package()?;
 
