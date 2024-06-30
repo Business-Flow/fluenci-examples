@@ -10,11 +10,9 @@ import (
 )
 
 func main() {
-	err := os.Setenv("CC", "musl-gcc")
-	if err != nil {
-		fmt.Println("Error setting environment variable:", err)
-		os.Exit(1)
-	}
+	setEnvOrExit("CC", "musl-gcc")
+	setEnvOrExit("GOOS", "linux")
+	setEnvOrExit("GOARCH", "amd64")
 
 	build_cmd := exec.Command("bash", "-c", "go build -o target_dir/my_project go/src/hello.go")
 
@@ -56,9 +54,9 @@ func main() {
 		}
 	}
 
-	azure_client_id := getEnvVarOrTerminate("AZURE_CLIENT_ID")
-	azure_secret := getEnvVarOrTerminate("AZURE_SECRET")
-	azure_tenant := getEnvVarOrTerminate("AZURE_TENANT")
+	azure_client_id := getEnvVarOrExit("AZURE_CLIENT_ID")
+	azure_secret := getEnvVarOrExit("AZURE_SECRET")
+	azure_tenant := getEnvVarOrExit("AZURE_TENANT")
 	fmt.Println("Logging in to Azure.")
 	az_login := fmt.Sprintf("az login --service-principal -u %s -p %s --tenant %s", azure_client_id, azure_secret, azure_tenant)
 	login_command := exec.Command("bash", "-c", az_login)
@@ -69,7 +67,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	azure_subscription_id := getEnvVarOrTerminate("AZURE_SUBSCRIPTION_ID")
+	azure_subscription_id := getEnvVarOrExit("AZURE_SUBSCRIPTION_ID")
 	fmt.Println("Setting Azure subscription.")
 	set_subscription := fmt.Sprintf("az account set --subscription %s", azure_subscription_id)
 	set_subscription_command := exec.Command("bash", "-c", set_subscription)
@@ -90,27 +88,24 @@ func main() {
 	if err != nil {
 		os.Exit(1)
 	}
-	// let set_subscription_command = format!("az account set --subscription {}",
-	//     get_env_var_or_err("AZURE_SUBSCRIPTION_ID").unwrap());
-
-	// run_command("sh", &["-c", set_subscription_command.as_str()])?;
-
-	// let deploy_command = "az functionapp deployment source config-zip --name fluenci-rust-demo --resource-group fluenci-prod --src target_dir/deploy.zip";
-
-	// run_command("sh", &[
-	//     "-c",
-	//     deploy_command
-	// ])?;
-
 }
 
-func getEnvVarOrTerminate(key string) string {
+func getEnvVarOrExit(key string) string {
 	value, exists := os.LookupEnv(key)
 	if !exists {
 		fmt.Printf("Environment variable %s is not set. Terminating the process.\n", key)
 		os.Exit(1)
 	}
 	return value
+}
+
+func setEnvOrExit(key, value string) {
+	err := os.Setenv(key, value)
+
+	if err != nil {
+		fmt.Printf("Error setting environment variable '%s': \n%s\n", key, err)
+		os.Exit(1)
+	}
 }
 
 func addFileToZip(zipWriter *zip.Writer, localFileName, fileNameWithinZip string, executable bool) error {
