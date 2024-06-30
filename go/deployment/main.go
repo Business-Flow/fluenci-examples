@@ -20,8 +20,8 @@ func main() {
 
 	fmt.Println("Building project.")
 	output, err := build_cmd.CombinedOutput()
+	fmt.Println(string(output))
 	if err != nil {
-		fmt.Println("Error:", err)
 		os.Exit(1)
 	}
 	fmt.Println("Project successfully built with output: ", output)
