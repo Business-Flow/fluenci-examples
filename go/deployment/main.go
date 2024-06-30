@@ -10,6 +10,12 @@ import (
 )
 
 func main() {
+	err := os.Setenv("CC", "musl-gcc")
+	if err != nil {
+		fmt.Println("Error setting environment variable:", err)
+		os.Exit(1)
+	}
+
 	build_cmd := exec.Command("bash", "-c", "go build -o target_dir/my_project go/src/hello.go")
 
 	fmt.Println("Building project.")

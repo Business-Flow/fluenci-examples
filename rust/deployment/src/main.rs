@@ -44,7 +44,6 @@ fn add_file_to_zip(zip: &mut ZipWriter<File>, local_file: &str, zip_file: &str, 
 
 fn deploy_zip_package() -> Result<()> {
     let login_command = format!("az login --service-principal -u {} -p {} --tenant {}",
-        // Environment variables/secret names are automatically prepended with `fluenci_`, for security:
         get_env_var_or_err("AZURE_CLIENT_ID")?,
         get_env_var_or_err("AZURE_SECRET")?,
         get_env_var_or_err("AZURE_TENANT")?);
