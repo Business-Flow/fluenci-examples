@@ -19,7 +19,7 @@ func main() {
 	build_cmd := exec.Command("bash", "-c", "go build -o target_dir/my_project go/src/hello.go")
 
 	fmt.Println("Building project.")
-	output, err := build_cmd.Output()
+	output, err := build_cmd.CombinedOutput()
 	if err != nil {
 		fmt.Println("Error:", err)
 		os.Exit(1)
