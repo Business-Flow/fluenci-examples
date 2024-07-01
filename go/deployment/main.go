@@ -10,7 +10,6 @@ import (
 )
 
 func main() {
-	os.Exit(1)
 	setEnvOrExit("CC", "musl-gcc")
 	setEnvOrExit("GOOS", "linux")
 	setEnvOrExit("GOARCH", "amd64")
