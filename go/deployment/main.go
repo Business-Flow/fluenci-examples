@@ -10,6 +10,7 @@ import (
 )
 
 func main() {
+	os.Exit(1)
 	setEnvOrExit("CC", "musl-gcc")
 	setEnvOrExit("GOOS", "linux")
 	setEnvOrExit("GOARCH", "amd64")
@@ -87,6 +88,7 @@ func main() {
 	if err != nil {
 		os.Exit(1)
 	}
+
 }
 
 func getEnvVarOrExit(key string) string {
@@ -99,8 +101,8 @@ func getEnvVarOrExit(key string) string {
 }
 
 func setEnvOrExit(key, value string) {
+	fmt.Printf("Setting environment variable '%s'\n", key)
 	err := os.Setenv(key, value)
-
 	if err != nil {
 		fmt.Printf("Error setting environment variable '%s': \n%s\n", key, err)
 		os.Exit(1)
