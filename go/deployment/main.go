@@ -40,11 +40,7 @@ func main() {
 		fmt.Println(err)
 		os.Exit(1)
 	}
-	defer zipFile.Close()
-
-	// Create a new zip writer
 	zipWriter := zip.NewWriter(zipFile)
-	defer zipWriter.Close()
 
 	for _, file := range filesToZip {
 		err := addFileToZip(zipWriter, file.localFileName, file.fileNameWithinZip, file.executable)
@@ -53,6 +49,9 @@ func main() {
 			os.Exit(1)
 		}
 	}
+
+	zipFile.Close()
+	zipWriter.Close()
 
 	azure_client_id := getEnvVarOrExit("AZURE_CLIENT_ID")
 	azure_secret := getEnvVarOrExit("AZURE_SECRET")
