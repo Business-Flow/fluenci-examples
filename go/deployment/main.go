@@ -10,7 +10,7 @@ import (
 )
 
 func main() {
-	setEnvOrExit("CC", "musl-gcc")
+	// setEnvOrExit("CC", "musl-gcc")
 	setEnvOrExit("GOOS", "linux")
 	setEnvOrExit("GOARCH", "amd64")
 
@@ -61,6 +61,9 @@ func main() {
 		fmt.Println("Error closing zip file:", err)
 		os.Exit(1)
 	}
+
+	// fmt.Println("Exiting on purpose.")
+	// os.Exit(1)
 
 	azure_client_id := getEnvVarOrExit("AZURE_CLIENT_ID")
 	azure_secret := getEnvVarOrExit("AZURE_SECRET")
