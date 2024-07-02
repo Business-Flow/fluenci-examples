@@ -9,7 +9,7 @@ import (
 
 func helloHandler(w http.ResponseWriter, r *http.Request) {
 	message := `<h1>Hello from a <a href="https://fluenci.co" target="_blank">FluenCI.co</a>-deployed Go app!</h1>
-                <h3>(Click <a href="https://github.com/dave-biz/fluenci-examples/blob/main/go/deployment/src/main.go" target="_blank">here</a> to view the pipeline that deployed me.)</h3>`
+                <h3>(Click <a href="https://github.com/dave-biz/fluenci-examples/blob/main/go/deployment/main.go" target="_blank">here</a> to view the pipeline that deployed me.)</h3>`
 
 	fmt.Fprint(w, message)
 }

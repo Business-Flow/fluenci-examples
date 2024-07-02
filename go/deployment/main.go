@@ -62,9 +62,6 @@ func main() {
 		os.Exit(1)
 	}
 
-	// fmt.Println("Exiting on purpose.")
-	// os.Exit(1)
-
 	azure_client_id := getEnvVarOrExit("AZURE_CLIENT_ID")
 	azure_secret := getEnvVarOrExit("AZURE_SECRET")
 	azure_tenant := getEnvVarOrExit("AZURE_TENANT")
