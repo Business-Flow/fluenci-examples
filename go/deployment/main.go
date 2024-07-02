@@ -50,8 +50,17 @@ func main() {
 		}
 	}
 
-	zipFile.Close()
-	zipWriter.Close()
+	err = zipWriter.Close()
+	if err != nil {
+		fmt.Println("Error closing zip writer:", err)
+		os.Exit(1)
+	}
+
+	err = zipFile.Close()
+	if err != nil {
+		fmt.Println("Error closing zip file:", err)
+		os.Exit(1)
+	}
 
 	azure_client_id := getEnvVarOrExit("AZURE_CLIENT_ID")
 	azure_secret := getEnvVarOrExit("AZURE_SECRET")
