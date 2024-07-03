@@ -30,8 +30,8 @@ AZURE_TENANT = get_env_variable('AZURE_TENANT')
 AZURE_SUBSCRIPTION_ID = get_env_variable('AZURE_SUBSCRIPTION_ID')
 
 files_to_zip = [
-    ('function_app.py', false),
-    ('host.json', false)
+    ('function_app.py', False),
+    ('host.json', False)
 ]
 
 create_zip('deploy.zip', files_to_zip)        
