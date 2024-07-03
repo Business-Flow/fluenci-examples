@@ -24,7 +24,7 @@ def create_zip(zip_name, files):
                 info.external_attr = 0x755 << 16 # Executable permissions
             else:
                 info.external_attr = 0o644 << 16 # Read/write permissions
-            with open(file, 'rb' as f):
+            with open(file, 'rb') f:
                 zipf.writestr(info, f.read(), compress_type=zipfile.ZIP_DEFLATED)
     
 
