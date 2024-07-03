@@ -33,8 +33,8 @@ AZURE_SUBSCRIPTION_ID = get_env_variable('AZURE_SUBSCRIPTION_ID')
 
 files_to_zip = [    
     ('python/host.json', 'host.json', False),
-    ('python/hello_world/__init__.py', 'hello_world/__init__.py', False),
-    ('python/hello_world/function.json', 'hello_world/function.json', False)
+    ('python/function_app.py', 'function_app.py', False)
+    #('python/hello_world/function.json', 'hello_world/function.json', False)
 ]
 
 create_zip('deploy.zip', files_to_zip)        
