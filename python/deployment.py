@@ -55,7 +55,7 @@ if result.returncode != 0:
 
 start = time.time()
 print("Deploying ZIP to Azure (Serverless) Function.")
-deploy_command = "az functionapp deployment source config-zip --name fluenci-go-demo --resource-group fluenci-prod --src deploy.zip --timeout 1800"
+deploy_command = "az functionapp deployment source config-zip --name fluenci-python-demo --resource-group fluenci-prod --src deploy.zip --timeout 1800"
 result = subprocess.run(["bash", "-c", deploy_command], capture_output=True, text=True)
 elapsed = time.time() - start
 print(f"The operation took {elapsed} seconds")
