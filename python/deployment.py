@@ -35,3 +35,27 @@ files_to_zip = [
 ]
 
 create_zip('deploy.zip', files_to_zip)        
+
+print("Logging in to Azure.")
+az_login = f"az login --service-principal -u {AZURE_CLIENT_ID} -p {AZURE_SECRET} --tenant {AZURE_TENANT}"
+result = subprocess.run(["bash", "-c", az_login], capture_output=True, text=True)
+print(result.stdout)
+if result.returncode != 0:
+    os._exit(1)
+
+print("Setting Azure subscription.")
+set_subscription = f"az account set --subscription {AZURE_SUBSCRIPTION_ID}"
+result = subprocess.run(["bash", "-c", set_subscription], capture_output=True, text=True)
+print(result.stdout)
+if result.returncode != 0:
+    os._exit(1)
+
+start = time.time()
+print("Deploying ZIP to Azure (Serverless) Function.")
+deploy_command = "az functionapp deployment source config-zip --name fluenci-go-demo --resource-group fluenci-prod --src deploy.zip --timeout 1800"
+result = subprocess.run(["bash", "-c", deploy_command], capture_output=True, text=True)
+elapsed = time.time() - start
+print(f"The operation took {elapsed} seconds")
+print(result.stdout)
+if result.returncode != 0:
+    os._exit(1)
