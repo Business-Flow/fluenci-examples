@@ -1,6 +1,4 @@
 {
-  "scriptFile": "function_app.py",
-  "entryPoint": "hello_world",
     "bindings": [
       {
         "authLevel": "anonymous",

@@ -31,9 +31,9 @@ AZURE_SECRET = get_env_variable('AZURE_SECRET')
 AZURE_TENANT = get_env_variable('AZURE_TENANT')
 AZURE_SUBSCRIPTION_ID = get_env_variable('AZURE_SUBSCRIPTION_ID')
 
-files_to_zip = [
-    ('python/function_app.py', 'function_app.py', False),
+files_to_zip = [    
     ('python/host.json', 'host.json', False),
+    ('python/hello_world/__init__.py', 'hello_world/__init__.py', False),
     ('python/function.json', 'hello_world/function.json', False)
 ]
 
