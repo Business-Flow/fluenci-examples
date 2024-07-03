@@ -44,6 +44,7 @@ az_login = f"az login --service-principal -u {AZURE_CLIENT_ID} -p {AZURE_SECRET}
 result = subprocess.run(["bash", "-c", az_login], capture_output=True, text=True)
 print(result.stdout)
 if result.returncode != 0:
+    print(result.stderr)
     os._exit(1)
 
 print("Setting Azure subscription.")
@@ -51,6 +52,7 @@ set_subscription = f"az account set --subscription {AZURE_SUBSCRIPTION_ID}"
 result = subprocess.run(["bash", "-c", set_subscription], capture_output=True, text=True)
 print(result.stdout)
 if result.returncode != 0:
+    print(result.stderr)
     os._exit(1)
 
 start = time.time()
@@ -61,4 +63,5 @@ elapsed = time.time() - start
 print(f"The operation took {elapsed} seconds")
 print(result.stdout)
 if result.returncode != 0:
+    print(result.stderr)
     os._exit(1)
