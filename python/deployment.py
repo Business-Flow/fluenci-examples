@@ -2,7 +2,7 @@ import logging
 import os
 import zipfile
 
-def create_zip(zip_name, files):
+def create_zip(zip_name: str, files):
     logging.info(f'Creating .zip file: {zip_name}')
     with zipfile.ZipFile(zip_name, 'w') as zipf:
         for local_file, file_within_zip, is_executable in files:
