@@ -5,14 +5,14 @@ import zipfile
 def create_zip(zip_name, files):
     logging.info(f'Creating .zip file: {zip_name}')
     with zipfile.ZipFile(zip_name, 'w') as zipf:
-        for file, is_executable in files:
-            logging.info(f"Adding file to zip: {file}")
-            info = zipfile.ZipInfo(os.path.basename(file))
+        for local_file, file_within_zip, is_executable in files:
+            logging.info(f"Adding local file {local_file} to zip as {file_within_zip}")
+            info = zipfile.ZipInfo(os.path.basename(file_within_zip))
             if is_executable:
                 info.external_attr = 0x755 << 16 # Executable permissions
             else:
                 info.external_attr = 0o644 << 16 # Read/write permissions
-            with open(file, 'rb') as f:
+            with open(local_file, 'rb') as f:
                 zipf.writestr(info, f.read(), compress_type=zipfile.ZIP_DEFLATED)
     
 
@@ -30,8 +30,8 @@ AZURE_TENANT = get_env_variable('AZURE_TENANT')
 AZURE_SUBSCRIPTION_ID = get_env_variable('AZURE_SUBSCRIPTION_ID')
 
 files_to_zip = [
-    ('function_app.py', False),
-    ('host.json', False)
+    ('python/function_app.py', 'function_app.py', False),
+    ('python/host.json', 'host.json', False)
 ]
 
 create_zip('deploy.zip', files_to_zip)        
