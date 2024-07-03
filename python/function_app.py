@@ -9,19 +9,8 @@ app = func.FunctionApp()
 def hello_world(req: func.HttpRequest) -> func.HttpResponse:
     logging.info('Python HTTP trigger function processed a request.')
 
-    name = req.params.get('name')
-    if not name:
-        try:
-            req_body = req.get_json()
-        except ValueError:
-            pass
-        else:
-            name = req_body.get('name')
-
-    if name:
-        return func.HttpResponse(f"Hello, {name}. This HTTP triggered function executed successfully.")
-    else:
-        return func.HttpResponse(
-             "Deployment.py This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response.",
-             status_code=200
-        )
+    return func.HttpResponse(
+            """<h1>Hello from a <a href="https://fluenci.co" target="_blank">FluenCI.co</a>-deployed Python app!</h1>
+               <h3>(Click <a href="https://github.com/dave-biz/fluenci-examples/blob/main/python/deployment.py" target="_blank">here</a> to view the pipeline that deployed me.)</h3>""",
+            status_code=200
+    )
