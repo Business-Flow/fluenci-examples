@@ -1,12 +1,11 @@
-import logging
 import os
 import zipfile
 
 def create_zip(zip_name: str, files):
-    logging.info(f'Creating .zip file: {zip_name}')
+    print(f'Creating .zip file: {zip_name}')
     with zipfile.ZipFile(zip_name, 'w') as zipf:
         for local_file, file_within_zip, is_executable in files:
-            logging.info(f"Adding local file {local_file} to zip as {file_within_zip}")
+            print(f"Adding local file {local_file} to zip as {file_within_zip}")
             info = zipfile.ZipInfo(os.path.basename(file_within_zip))
             if is_executable:
                 info.external_attr = 0x755 << 16 # Executable permissions
@@ -17,11 +16,12 @@ def create_zip(zip_name: str, files):
     
 
 
-def get_env_variable(var_name):
-        value=os.getenv(var_name)
-        if value is None or value == '':
-            raise EnvironmentError(f"Environment variable '{var_name}' is missing or not set.")
-        return value
+def get_env_variable(var_name: str):
+    print(f"Getting environment variable: '{var_name}'")
+    value=os.getenv(var_name)
+    if value is None or value == '':
+        raise EnvironmentError(f"Environment variable '{var_name}' is missing or not set.")
+    return value
 
 
 AZURE_CLIENT_ID = get_env_variable('AZURE_CLIENT_ID')
