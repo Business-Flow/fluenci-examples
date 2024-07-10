@@ -25,7 +25,7 @@ def get_env_variable(var_name: str):
         raise EnvironmentError(f"Environment variable '{var_name}' is missing or not set.")
     return value
 
-ßAZURE_CLIENT_ID = get_env_variable('AZURE_CLIENT_ID')
+AZURE_CLIENT_ID = get_env_variable('AZURE_CLIENT_ID')
 AZURE_SECRET = get_env_variable('AZURE_SECRET')
 AZURE_TENANT = get_env_variable('AZURE_TENANT')
 AZURE_SUBSCRIPTION_ID = get_env_variable('AZURE_SUBSCRIPTION_ID')
