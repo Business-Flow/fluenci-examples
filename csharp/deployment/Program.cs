@@ -41,8 +41,8 @@ public class Program
 			{
 				FileName = command,
 				Arguments = arguments,
-				RedirectStandardOutput = false,
-				RedirectStandardError = false,
+				RedirectStandardOutput = true,
+				RedirectStandardError = true,
 				UseShellExecute = false,
 				CreateNoWindow = true
 			}
@@ -66,15 +66,18 @@ public class Program
 
 		process.Start();
 
-		string result = process.StandardOutput.ReadToEnd();
-		string error = process.StandardError.ReadToEnd();
+		// string result = process.StandardOutput.ReadToEnd();
+		// string error = process.StandardError.ReadToEnd();
+
+		process.BeginOutputReadLine();
+		process.BeginErrorReadLine();
 
 		process.WaitForExit();
 
-		Console.WriteLine("Output: \n" + result);
-		if (!string.IsNullOrWhiteSpace(error))
-		{
-			Console.WriteLine("Error: \n" + error);
-		}
+		// Console.WriteLine("Output: \n" + result);
+		// if (!string.IsNullOrWhiteSpace(error))
+		// {
+		// 	Console.WriteLine("Error: \n" + error);
+		// }
 	}
 }
