@@ -48,6 +48,22 @@ public class Program
 			}
 		};	
 
+		process.OutputDataReceived += (sender, e) =>
+        {
+            if (!string.IsNullOrEmpty(e.Data))
+            {
+                Console.WriteLine("Output: " + e.Data);
+            }
+        };
+
+        process.ErrorDataReceived += (sender, e) =>
+        {
+            if (!string.IsNullOrEmpty(e.Data))
+            {
+                Console.WriteLine("Error: " + e.Data);
+            }
+        };
+
 		process.Start();
 
 		string result = process.StandardOutput.ReadToEnd();
