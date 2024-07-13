@@ -53,6 +53,7 @@ public class Program
             if (!string.IsNullOrEmpty(e.Data))
             {
                 Console.WriteLine("Output: " + e.Data);
+				Console.Out.Flush();
             }
         };
 
@@ -61,6 +62,7 @@ public class Program
             if (!string.IsNullOrEmpty(e.Data))
             {
                 Console.WriteLine("Error: " + e.Data);
+				Console.Out.Flush();
             }
         };
 
@@ -69,8 +71,8 @@ public class Program
 		// string result = process.StandardOutput.ReadToEnd();
 		// string error = process.StandardError.ReadToEnd();
 
-		process.BeginOutputReadLine();
-		process.BeginErrorReadLine();
+		// process.BeginOutputReadLine();
+		// process.BeginErrorReadLine();
 
 		process.WaitForExit();
 
