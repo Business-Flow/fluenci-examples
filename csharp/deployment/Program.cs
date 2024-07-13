@@ -8,6 +8,7 @@ public class Program
 	public static void Main()
 	{
 		Console.WriteLine("Starting C# pipeline.");
+		Console.Out.Flush();
 		return;
 		var azureClientId = GetEnvironmentVariableOrFail("AZURE_CLIENT_ID");
 		var azureSecret = GetEnvironmentVariableOrFail("AZURE_SECRET");
