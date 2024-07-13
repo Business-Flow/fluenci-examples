@@ -20,7 +20,7 @@ public class Program
 		Console.WriteLine($"Current directory is: {Directory.GetCurrentDirectory()}");
 
 		Console.WriteLine("Publishing Function App ...");
-		RunCommand("func", "azure functionapp publish fluenci-csharp-demo --verbose");
+		RunCommand("func", "azure functionapp publish fluenci-csharp-demo  --dotnet-isolated --dotnet-version 8.0");
 	}
 
 	public static string GetEnvironmentVariableOrFail(string name)
