@@ -41,8 +41,8 @@ public class Program
 			{
 				FileName = command,
 				Arguments = arguments,
-				RedirectStandardOutput = true,
-				RedirectStandardError = true,
+				RedirectStandardOutput = false,
+				RedirectStandardError = false,
 				UseShellExecute = false,
 				CreateNoWindow = true
 			}
