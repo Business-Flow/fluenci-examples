@@ -24,7 +24,7 @@ namespace csharp_project;
 
             response.WriteString("""
                <h1>Hello from a <a href="https://fluenci.co" target="_blank">FluenCI.co</a>-deployed C# app!</h1>
-               <h3>(Click <a href="https://github.com/dave-biz/fluenci-examples/blob/main/csharp/deployment/Program.cs" target="_blank">here</a> to view the pipeline that deployed me.)</h3>
+               <h3>(Click <a href="https://github.com/dave-biz/fluenci-examples/blob/main/csharp/deployment/Program.cs" target="_blank">here</a> to view the C# pipeline that deployed me.)</h3>
             """);
 
             return response;
