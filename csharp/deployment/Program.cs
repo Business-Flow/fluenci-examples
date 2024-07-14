@@ -8,16 +8,22 @@ public class Program
 	public static void Main()
 	{
 		Console.WriteLine("Starting C# pipeline.");
-		var azureClientId = GetEnvironmentVariableOrFail("AZURE_CLIENT_ID");
-		var azureSecret = GetEnvironmentVariableOrFail("AZURE_SECRET");
-		var azureTenant= GetEnvironmentVariableOrFail("AZURE_TENANT");
-		var azureSubscriptionId = GetEnvironmentVariableOrFail("AZURE_SUBSCRIPTION_ID");
+		var AZURE_CLIENT_ID = GetEnvironmentVariableOrFail("AZURE_CLIENT_ID");
+		var AZURE_SECRET = GetEnvironmentVariableOrFail("AZURE_SECRET");
+		var AZURE_TENANT= GetEnvironmentVariableOrFail("AZURE_TENANT");
+		var AZURE_SUBSCRIPTION_ID = GetEnvironmentVariableOrFail("AZURE_SUBSCRIPTION_ID");
 
 		var projectCodeDirectory = "csharp/csharp_project";
 		Console.WriteLine($"Changing to directory: {projectCodeDirectory}");
 		Directory.SetCurrentDirectory(projectCodeDirectory);
 
 		Console.WriteLine($"Current directory is: {Directory.GetCurrentDirectory()}");
+
+		Console.WriteLine("Logging in to Azure.");
+		RunCommand("az", $"login --service-principal -u {AZURE_CLIENT_ID} -p {AZURE_SECRET} --tenant {AZURE_TENANT}");
+
+		Console.WriteLine("Setting Azure Subscription.");
+		RunCommand("az", $"account set --subscription {AZURE_SUBSCRIPTION_ID}");
 
 		Console.WriteLine("Publishing Function App ...");
 		RunCommand("func", "azure functionapp publish fluenci-csharp-demo  --dotnet-isolated --dotnet-version 8.0");
@@ -67,19 +73,12 @@ public class Program
         };
 
 		process.Start();
-
-		// string result = process.StandardOutput.ReadToEnd();
-		// string error = process.StandardError.ReadToEnd();
-
-		// process.BeginOutputReadLine();
-		// process.BeginErrorReadLine();
-
 		process.WaitForExit();
 
-		// Console.WriteLine("Output: \n" + result);
-		// if (!string.IsNullOrWhiteSpace(error))
-		// {
-		// 	Console.WriteLine("Error: \n" + error);
-		// }
+		if (process.ExitCode != 0)
+		{
+			Console.WriteLine($"Command '{command}' failed with exit code {process.ExitCode}.  Terminating.");
+			Environment.Exit(process.ExitCode)
+		}
 	}
 }
