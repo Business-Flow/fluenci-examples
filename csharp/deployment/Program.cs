@@ -78,7 +78,7 @@ public class Program
 		if (process.ExitCode != 0)
 		{
 			Console.WriteLine($"Command '{command}' failed with exit code {process.ExitCode}.  Terminating.");
-			Environment.Exit(process.ExitCode)
+			Environment.Exit(process.ExitCode);
 		}
 	}
 }
