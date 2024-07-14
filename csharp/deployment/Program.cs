@@ -8,9 +8,6 @@ public class Program
 	public static void Main()
 	{
 		Console.WriteLine("Starting C# pipeline.");
-		Debug.WriteLine("This is from the debug stream.");
-		Console.Error.WriteLine("This is from stderr");
-		return;
 		var azureClientId = GetEnvironmentVariableOrFail("AZURE_CLIENT_ID");
 		var azureSecret = GetEnvironmentVariableOrFail("AZURE_SECRET");
 		var azureTenant= GetEnvironmentVariableOrFail("AZURE_TENANT");
